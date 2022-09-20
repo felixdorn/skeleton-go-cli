@@ -1,0 +1,59 @@
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - typecheck
+    - unused
+    - wsl
+    - gocritic
+    - wrapcheck
+    - thelper
+    - ifshort
+    - errorlint
+    - gosec
+    - forbidigo
+    - varnamelen
+    - godot
+    - gomnd
+    - goerr113
+    - noctx
+    - testpackage
+    - goconst
+    - errcheck
+    - containedctx
+    - staticcheck
+    - prealloc
+    - nlreturn
+    - godox
+    - contextcheck
+    - tagliatelle
+    - errchkjson
+    - whitespace
+    - forcetypeassert
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - dogsled
+    - dupl
+    - durationcheck
+    - errname
+    - exportloopref
+    - misspell
+    - gochecknoinits
+    - nilerr
+    - nolintlint
+    - nonamedreturns
+    - nosprintfhostport
+    - predeclared
+    - reassign
+    - revive
+    - tenv
+    - unconvert
+
+output:
+  sort-results: true
+

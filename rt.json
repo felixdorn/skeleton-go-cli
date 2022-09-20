@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/felixdorn/release-that/main/schema.json",
+  "release_notes": {
+    "commit_format": "* :hash: :message",
+    "title": "Release :version"
+  },
+  "before_release": [
+    "go build -ldflags='-w -s -X github.com/owner/repository/core.store.Version=:version' -gcflags=all='-l' -o bin/:bin"
+  ],
+  "after_release": [],
+  "assets": [
+    "./bin/:bin"
+  ],
+  "tag_message": "Version :tag"
+}
