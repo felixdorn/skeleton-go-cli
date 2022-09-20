@@ -9,7 +9,7 @@ tasks:
     silent: true
     ignore_error: true
     cmds:
-      - 'echo "bin=\"go run github.com/owner/repository/cmd/:bin\""'
+      - 'echo ":bin=\"go run github.com/owner/repository/cmd/:name\""'
   coverage:
     desc: Prints your test coverage per package
     silent: true

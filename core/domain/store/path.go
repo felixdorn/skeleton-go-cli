@@ -2,10 +2,11 @@ package store
 
 import (
 	"fmt"
-	"github.com/mitchellh/go-homedir"
 	"os"
 	"path"
 	"testing"
+
+	"github.com/mitchellh/go-homedir"
 )
 
 const (
@@ -38,12 +39,13 @@ func (s Store) Open(name string, flags int, perm os.FileMode) (*os.File, error) 
 	return f, nil
 }
 
-// DataDir returns the store directory for the current user.
+// Dir returns the store directory for the current user.
 func (s Store) Dir() (string, error) {
 	home, err := homedir.Dir()
 	if err != nil {
 		return "", fmt.Errorf("store: %w", err)
 	}
+
 	if customHome != "" {
 		home = customHome
 	}

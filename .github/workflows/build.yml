@@ -24,7 +24,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
-          project_path: "./cmd/name"
-          binary_name: "name"
+          project_path: "./cmd/:bin"
+          binary_name: ":bin"
           build_flags: "-gcflags=all='-l'"
           ldflags: "-w -s -X github.com/owner/repository/core/static.Version=${{ env.APP_VERSION }} -X  github.com/owner/repository/core/static.Commit=${{ github.sha }}"
