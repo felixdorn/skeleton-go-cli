@@ -2,11 +2,12 @@ package cli
 
 import (
 	"fmt"
+	"io"
+
 	"github.com/owner/repository/core/domain/log"
 	"github.com/owner/repository/core/static"
 	"github.com/spf13/cobra"
 	"github.com/vite-cloud/go-zoup"
-	"io"
 )
 
 // Stdout provides a minimal interface for writing to stdout.

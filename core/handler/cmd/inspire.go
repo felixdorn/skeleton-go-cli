@@ -2,10 +2,11 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/owner/repository/core/handler/cli"
-	"github.com/spf13/cobra"
 	"math/rand"
 	"time"
+
+	"github.com/owner/repository/core/handler/cli"
+	"github.com/spf13/cobra"
 )
 
 var Quotes = [39]string{

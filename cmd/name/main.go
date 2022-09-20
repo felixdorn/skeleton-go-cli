@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/owner/repository/core/handler"
 	"os"
+
+	"github.com/owner/repository/core/handler"
 )
 
 func main() {

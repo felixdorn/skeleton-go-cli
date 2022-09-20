@@ -12,7 +12,11 @@ tasks:
   lint:
     cmds:
       - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.49
-      - golangci-lint run ./...
+      - golangci-lint run
+  fix:
+    cmds:
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.49
+      - golangci-lint run --fix
   build:
     desc: Build
     cmds:

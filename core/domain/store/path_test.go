@@ -1,11 +1,12 @@
 package store_test
 
 import (
-	"github.com/owner/repository/core/domain/store"
-	"gotest.tools/v3/assert"
 	"os"
 	"path"
 	"testing"
+
+	"github.com/owner/repository/core/domain/store"
+	"gotest.tools/v3/assert"
 )
 
 func TestStore_Dir(t *testing.T) {
@@ -21,7 +22,7 @@ func TestStore_Dir(t *testing.T) {
 func TestStore_Open(t *testing.T) {
 	store.WithFakeHome(t, func(fakeHome string) {
 		s := store.Store("test")
-		f, err := s.Open("test.txt", os.O_CREATE, 0700)
+		f, err := s.Open("test.txt", os.O_CREATE, 0o700)
 		assert.NilError(t, err)
 		defer f.Close()
 

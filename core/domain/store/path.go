@@ -2,10 +2,11 @@ package store
 
 import (
 	"fmt"
-	"github.com/docker/docker/pkg/homedir"
 	"os"
 	"path"
 	"testing"
+
+	"github.com/docker/docker/pkg/homedir"
 )
 
 const (
@@ -13,7 +14,7 @@ const (
 	DataDirName = ".:bin"
 
 	// DefaultFileMode is the file mode used for the data directory.
-	DefaultFileMode = os.FileMode(0700)
+	DefaultFileMode = os.FileMode(0o700)
 )
 
 // customHome is used for testing via the WithFakeHome function.

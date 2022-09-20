@@ -1,9 +1,10 @@
 package log
 
 import (
+	"os"
+
 	"github.com/owner/repository/core/domain/store"
 	"github.com/vite-cloud/go-zoup"
-	"os"
 )
 
 const (
@@ -13,7 +14,7 @@ const (
 	DefaultLogFile = ":bin.log"
 
 	// DefaultFileMode is the file mode used for the log file.
-	DefaultFileMode = os.FileMode(0600)
+	DefaultFileMode = os.FileMode(0o600)
 )
 
 // Log logs an internal event to the global logger.

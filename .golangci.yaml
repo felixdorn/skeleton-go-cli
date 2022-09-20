@@ -53,6 +53,7 @@ linters:
     - revive
     - tenv
     - unconvert
+    - gofumpt
 
 output:
   sort-results: true

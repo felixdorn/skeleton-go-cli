@@ -2,15 +2,16 @@ package log_test
 
 import (
 	"fmt"
+	"os"
+	"path"
+	"testing"
+
 	"github.com/owner/repository/core/domain/log"
 	"github.com/owner/repository/core/domain/store"
 	"github.com/vite-cloud/go-zoup"
 
 	panics "github.com/magiconair/properties/assert"
 	"gotest.tools/v3/assert"
-	"os"
-	"path"
-	"testing"
 )
 
 func TestLog(t *testing.T) {
@@ -36,7 +37,7 @@ func TestLog4(t *testing.T) {
 		dir, err := log.Store.Dir()
 		assert.NilError(t, err)
 
-		err = os.Mkdir(dir+"/"+log.DefaultLogFile, 0600)
+		err = os.Mkdir(dir+"/"+log.DefaultLogFile, 0o600)
 		assert.NilError(t, err)
 
 		panics.Panic(t, func() {
