@@ -5,7 +5,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/owner/repository/core/handler/cli"
+	"github.com/owner/repository/core/handler/cli/cli"
+
 	"github.com/spf13/cobra"
 )
 

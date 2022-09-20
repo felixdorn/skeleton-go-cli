@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/owner/repository/core/domain/log"
 	"github.com/owner/repository/core/static"
+
+	"github.com/owner/repository/core/domain/log"
 	"github.com/spf13/cobra"
 	"github.com/vite-cloud/go-zoup"
 )
@@ -50,7 +51,7 @@ func (c *CLI) Err() io.Writer {
 // and returns the exit code for the command.
 func (c *CLI) Run(args []string) int {
 	cli := &cobra.Command{
-		Use:           ":bin",
+		Use:           "bin",
 		SilenceErrors: true,
 		SilenceUsage:  true,
 		CompletionOptions: cobra.CompletionOptions{
@@ -59,7 +60,6 @@ func (c *CLI) Run(args []string) int {
 		Version: fmt.Sprintf("%s, build %s", static.Version, static.Commit),
 	}
 
-	cli.SetVersionTemplate(":bin version {{.id}}\n")
 	cli.SetHelpCommand(&cobra.Command{
 		Use:    "__help",
 		Hidden: true,
@@ -82,6 +82,8 @@ func (c *CLI) Run(args []string) int {
 			"command": command,
 		})
 
+		return 0
+	} else if err == nil {
 		return 0
 	} else if statusErr, ok := err.(*StatusError); ok { //nolint:errorlint // A status error would only exist at the top level of the error chain.
 		_, _ = fmt.Fprintf(c.Err(), "Error: %s\n", statusErr.Status)

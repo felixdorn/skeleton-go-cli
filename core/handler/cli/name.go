@@ -3,8 +3,8 @@ package cli
 import (
 	"os"
 
-	"github.com/owner/repository/core/handler/cli"
-	"github.com/owner/repository/core/handler/cmd"
+	"github.com/owner/repository/core/handler/cli/cli"
+	"github.com/owner/repository/core/handler/cli/cmd"
 )
 
 // New returns a new cli.CLI instance.

@@ -10,6 +10,7 @@ import (
 const (
 	// Store is the unique name of the logger store.
 	Store = store.Store("logs")
+
 	// DefaultLogFile is the name of the log file.
 	DefaultLogFile = ":bin.log"
 

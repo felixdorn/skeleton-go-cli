@@ -1,27 +1,40 @@
 version: '3'
-
 tasks:
+  setup:
+
+    cmds:
+      - go install gotest.tools/gotestsum@latest
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.49
+  alias:
+    silent: true
+    ignore_error: true
+    cmds:
+      - 'echo "bin=\"go run github.com/owner/repository/cmd/:bin\""'
   coverage:
+    desc: Prints your test coverage per package
     silent: true
     cmds:
       - go test -race -covermode=atomic -cover ./...
   test:
+    desc: Runs your tests using gotestsum
+    deps: [setup]
     cmds:
-      - go install gotest.tools/gotestsum@latest
       - gotestsum --format=short-verbose -- -race -v ./...
   lint:
+    desc: Lints your code
+    deps: [setup]
     cmds:
-      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.49
       - golangci-lint run
   fix:
+    desc: Formats your code properly
+    deps: [setup]
     cmds:
-      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.49
       - golangci-lint run --fix
   build:
-    desc: Build
+    desc: Build a development binary in bin/:bin
     cmds:
       - go build \
-        -ldflags='-w -s -X github.com/owner/repository/core.store.Version=:version' \
+        -ldflags='-w -s' \
         -gcflags=all='-l' \
         -o bin/:bin github.com/owner/repository/cmd/:bin
 

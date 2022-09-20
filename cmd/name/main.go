@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/owner/repository/core/handler"
+	"github.com/owner/repository/core/handler/cli"
 )
 
 func main() {

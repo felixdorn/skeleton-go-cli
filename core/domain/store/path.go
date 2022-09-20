@@ -41,38 +41,19 @@ func (s Store) Open(name string, flags int, perm os.FileMode) (*os.File, error) 
 
 // DataDir returns the store directory for the current user.
 func (s Store) Dir() (string, error) {
-	dataDir, err := DataDir()
-	if err != nil {
-		return "", err
+	home := homedir.Get()
+
+	if customHome != "" {
+		home = customHome
 	}
 
-	dir := path.Join(dataDir, string(s))
+	dir := path.Join(home, DataDirName, string(s))
 
-	if err = os.MkdirAll(dir, DefaultFileMode); err != nil {
+	if err := os.MkdirAll(dir, DefaultFileMode); err != nil {
 		return "", fmt.Errorf("store: %w", err)
 	}
 
 	return dir, nil
-}
-
-// DataDir returns the path to the data directory for the current user
-// Usually, this is ~/.:bin.
-func DataDir() (string, error) {
-	dataDir := path.Join(userHome(), DataDirName)
-
-	if err := os.MkdirAll(dataDir, DefaultFileMode); err != nil {
-		return "", fmt.Errorf("store: %w", err)
-	}
-
-	return dataDir, nil
-}
-
-func userHome() string {
-	if customHome != "" {
-		return customHome
-	}
-
-	return homedir.Get()
 }
 
 func WithFakeHome(t *testing.T, callback func(fakeHome string)) {

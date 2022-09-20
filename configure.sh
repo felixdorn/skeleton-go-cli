@@ -31,6 +31,7 @@ if ! confirm "Modify files?"; then
 fi
 
 mv "cmd/name" "cmd/$binary_name"
+mv "core/handler/cli/name.go" "core/handler/cli/$binary_name.go"
 
 grep -Erli ":bin|owner/repo|:email" --exclude-dir=bin ./* ./.github/* | grep -v "$script_name" \
 | while read -r file ; do
@@ -47,6 +48,7 @@ grep -Erli ":bin|owner/repo|:email" --exclude-dir=bin ./* ./.github/* | grep -v 
         mv "$temp_file" "$file"
 done
 
+rm README.md
 
 if confirm 'Let this script delete itself?'; then
     sleep 1 && rm -- "$0"
