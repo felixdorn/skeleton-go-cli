@@ -2,11 +2,10 @@ package store
 
 import (
 	"fmt"
+	"github.com/docker/docker/pkg/homedir"
 	"os"
 	"path"
 	"testing"
-
-	"github.com/docker/docker/pkg/homedir"
 )
 
 const (
@@ -42,7 +41,6 @@ func (s Store) Open(name string, flags int, perm os.FileMode) (*os.File, error) 
 // DataDir returns the store directory for the current user.
 func (s Store) Dir() (string, error) {
 	home := homedir.Get()
-
 	if customHome != "" {
 		home = customHome
 	}
