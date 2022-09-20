@@ -1,6 +1,6 @@
 on:
   release:
-    types: [created]
+    types: [prereleased, published, released]
 
 # go build -gcflags=all='-l' -ldflags='-w -s -X github.com/owner/repository/core/static.Version=:version -X  github.com/owner/repository/core/static.Commit=:hash' -o bin/:bin  github.com/owner/repository/cmd/:bin
 jobs:
