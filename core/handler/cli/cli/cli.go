@@ -3,6 +3,7 @@ package cli
 import (
 	"fmt"
 	"io"
+	"os"
 
 	"github.com/owner/repository/core/static"
 
@@ -10,12 +11,6 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/vite-cloud/go-zoup"
 )
-
-// Stdout provides a minimal interface for writing to stdout.
-type Stdout interface {
-	io.Writer
-	Fd() uintptr
-}
 
 // Stdin provides a minimal interface for reading stdin.
 type Stdin interface {
@@ -25,15 +20,15 @@ type Stdin interface {
 
 // CLI is the command line interface for Name.
 type CLI struct {
-	out Stdout
-	in  Stdin
+	out io.Writer
 	err io.Writer
+	in  Stdin
 
 	commands []*cobra.Command
 }
 
 // Out returns the current output writer.
-func (c *CLI) Out() Stdout {
+func (c *CLI) Out() io.Writer {
 	return c.out
 }
 
@@ -77,7 +72,7 @@ func (c *CLI) Run(args []string) int {
 		command = args[0]
 	}
 
-	if err := cli.Execute(); err != nil {
+	if err := cli.Execute(); err == nil {
 		log.Log(zoup.InfoLevel, "command ran successfully", zoup.Fields{
 			"command": command,
 		})
@@ -116,12 +111,18 @@ func (c *CLI) Add(commands ...*cobra.Command) *CLI {
 }
 
 // New returns a new CLI with the given standard IO.
-func New(out Stdout, in Stdin, err io.Writer) *CLI {
-	return &CLI{
-		out: out,
-		in:  in,
-		err: err,
+func New(opts ...Opt) *CLI {
+	cli := &CLI{
+		out: os.Stdout,
+		err: os.Stderr,
+		in:  os.Stdin,
 	}
+
+	for _, opt := range opts {
+		opt(cli)
+	}
+
+	return cli
 }
 
 // StatusError is an error type that contains an exit code.
@@ -134,4 +135,34 @@ type StatusError struct {
 // Error implements the error interface.
 func (s *StatusError) Error() string {
 	return s.Status
+}
+
+type Opt func(*CLI)
+
+func WithStdout(out io.Writer) Opt {
+	return func(c *CLI) {
+		c.out = out
+	}
+}
+
+func WithStdin(in Stdin) Opt {
+	return func(c *CLI) {
+		c.in = in
+	}
+}
+
+func WithStderr(err io.Writer) Opt {
+	return func(c *CLI) {
+		c.err = err
+	}
+}
+
+func When(condition bool, opts ...Opt) Opt {
+	return func(c *CLI) {
+		if condition {
+			for _, opt := range opts {
+				opt(c)
+			}
+		}
+	}
 }

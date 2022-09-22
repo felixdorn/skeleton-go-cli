@@ -18,7 +18,7 @@ tasks:
     desc: Runs your tests using gotestsum
     deps: [setup]
     cmds:
-      - gotestsum --format=short-verbose -- -race -v ./...
+      - gotestsum --format=short-verbose -- -race -v ./... -args {{ .CLI_ARGS }}
   lint:
     desc: Lints your code
     deps: [setup]

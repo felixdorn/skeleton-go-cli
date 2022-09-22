@@ -50,6 +50,15 @@ done
 
 rm README.md
 
+if confirm "Remove stub files?"; then
+  rm core/handler/cli/cmd/testdata/output/*.golden
+  rm core/handle/cli/cmd/inspire*.go
+fi
+
+rm -rf .git
+git init
+git remote add origin "git@github.com:$repo_url.git"
+
 if confirm 'Let this script delete itself?'; then
     sleep 1 && rm -- "$0"
 fi

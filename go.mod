@@ -3,10 +3,8 @@ module github.com/owner/repository
 go 1.19
 
 require (
-	github.com/Netflix/go-expect v0.0.0-20220104043353-73e0943537d2
-	github.com/hinshun/vt10x v0.0.0-20220301184237-5011da428d02
-	github.com/kr/pty v1.1.8
 	github.com/magiconair/properties v1.8.6
+	github.com/mattn/go-shellwords v1.0.12
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.5.0
 	github.com/vite-cloud/go-zoup v0.0.0-20220527093900-781060f159c5
@@ -14,7 +12,6 @@ require (
 )
 
 require (
-	github.com/creack/pty v1.1.17 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
