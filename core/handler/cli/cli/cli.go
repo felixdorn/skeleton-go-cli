@@ -2,17 +2,16 @@ package cli
 
 import (
 	"fmt"
+	"github.com/rs/zerolog"
 	"io"
 	"os"
 
 	"github.com/owner/repository/core/static"
 
-	"github.com/owner/repository/core/domain/log"
 	"github.com/spf13/cobra"
-	"github.com/vite-cloud/go-zoup"
 )
 
-// Stdin provides a minimal interface for reading stdin.
+// Stdin provides a minimal interface for  reading stdin.
 type Stdin interface {
 	io.Reader
 	Fd() uintptr
@@ -23,6 +22,8 @@ type CLI struct {
 	out io.Writer
 	err io.Writer
 	in  Stdin
+
+	log zerolog.Logger
 
 	commands []*cobra.Command
 }
@@ -73,9 +74,10 @@ func (c *CLI) Run(args []string) int {
 	}
 
 	if err := cli.Execute(); err == nil {
-		log.Log(zoup.InfoLevel, "command ran successfully", zoup.Fields{
-			"command": command,
-		})
+		c.log.
+			Info().
+			Str("command", command).
+			Msg("command ran successfully")
 
 		return 0
 	} else if err == nil {
@@ -83,21 +85,22 @@ func (c *CLI) Run(args []string) int {
 	} else if statusErr, ok := err.(*StatusError); ok { //nolint:errorlint // A status error would only exist at the top level of the error chain.
 		_, _ = fmt.Fprintf(c.Err(), "Error: %s\n", statusErr.Status)
 
-		log.Log(zoup.ErrorLevel, "command failed", zoup.Fields{
-			"command": command,
-			"err":     statusErr.Status,
-			"code":    statusErr.StatusCode,
-		})
+		c.log.
+			Error().
+			Str("error", statusErr.Status).
+			Str("command", command).
+			Int("code", statusErr.StatusCode).
+			Msg("command failed")
 
 		return statusErr.StatusCode
 	} else {
 		_, _ = fmt.Fprintf(c.Err(), "Error: %s\n", err)
 
-		log.Log(zoup.ErrorLevel, "command failed", zoup.Fields{
-			"command": command,
-			"err":     err,
-			"code":    1,
-		})
+		c.log.Error().
+			Str("commmand", command).
+			Err(err).
+			Int("code", 1).
+			Msg("command failed")
 
 		return 1
 	}
